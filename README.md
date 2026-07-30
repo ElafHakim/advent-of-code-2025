@@ -6,7 +6,7 @@ Solutions for the Advent of Code 2025
 - Node.js 18 or later
 - This project uses **ES Modules** (`"type": "module"` in `package.json`).
 
-- ## Run the solutions
+## Run the solutions
 
 From the repository root, execute the desired solution:
 
