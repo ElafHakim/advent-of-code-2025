@@ -2,6 +2,7 @@
   AOC_day_1_Part_2
 */
 const fs = require("fs");
+const path = require("path");
 
 let dialPosition = 50;
 const maxDialPosition = 99;
@@ -48,7 +49,9 @@ function calculatePassword(filename) {
     return passwordCount;
 }
 
-const result = calculatePassword("../data/input.txt");
+//const result = calculatePassword("../data/input.txt");
+const inputFile = path.join(__dirname, "..", "data", "input.txt");
+const result = calculatePassword(inputFile);
 
 console.log("day_1_Part_2");
 console.log("Password:", result);
