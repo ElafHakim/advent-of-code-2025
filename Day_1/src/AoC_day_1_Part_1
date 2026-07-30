@@ -1,8 +1,12 @@
 /*
   AOC_day_1_Part_1
 */
-const fs = require("fs");
-const path = require("path");
+import { readFileSync } from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let dialPosition = 50;
 const maxDialPosition = 99;
@@ -18,7 +22,7 @@ function rotateDial(newDialPosition) {
 }
 
 function calculatePassword(filename) {
-    const instructions = fs.readFileSync(filename, "utf8").trim().split("\n");
+    const instructions = readFileSync(filename, "utf8").trim().split("\n");
 
     for (const instruction of instructions) {
         const direction = instruction[0];
