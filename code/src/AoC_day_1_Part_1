@@ -1,0 +1,39 @@
+/*
+  AOC_day_1_Part_1
+*/
+const fs = require("fs");
+
+let dialPosition = 50;
+const maxDialPosition = 99;
+let passwordCount = 0;
+
+function rotateDial(newDialPosition) {
+    const DIAL_MAX = maxDialPosition + 1;
+    dialPosition = ((newDialPosition % DIAL_MAX) + DIAL_MAX) % DIAL_MAX;
+
+    if (dialPosition === 0) {
+        passwordCount++;
+    }
+}
+
+function calculatePassword(filename) {
+    const instructions = fs.readFileSync(filename, "utf8").trim().split("\n");
+
+    for (const instruction of instructions) {
+        const direction = instruction[0];
+        const rotations = parseInt(instruction.slice(1), 10);
+
+        if (direction === "L") {
+            rotateDial(dialPosition - rotations);
+        } else if (direction === "R") {
+            rotateDial(dialPosition + rotations);
+        }
+    }
+
+    return passwordCount;
+}
+
+const result = calculatePassword("../data/input.txt");
+
+console.log("day_1_Part_1");
+console.log("Password:", result);

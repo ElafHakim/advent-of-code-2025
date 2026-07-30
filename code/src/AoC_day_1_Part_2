@@ -1,0 +1,54 @@
+/*
+  AOC_day_1_Part_2
+*/
+const fs = require("fs");
+
+let dialPosition = 50;
+const maxDialPosition = 99;
+const DIAL_MAX = maxDialPosition + 1;
+let passwordCount = 0;
+
+function rotateLeft(rotations) {
+    let zeroCount = 0;
+
+    if (dialPosition === 0) {
+        zeroCount = Math.floor(rotations / DIAL_MAX);
+    } else {
+        if (rotations >= dialPosition) {
+            zeroCount = Math.floor((rotations - dialPosition) / DIAL_MAX) + 1;
+        }
+    }
+
+    passwordCount += zeroCount;
+
+    dialPosition = ((dialPosition - rotations) % DIAL_MAX + DIAL_MAX) % DIAL_MAX;
+}
+
+function rotateRight(rotations) {
+    const newDialPosition = dialPosition + rotations;
+
+    passwordCount += Math.floor(newDialPosition / DIAL_MAX);
+    dialPosition = newDialPosition % DIAL_MAX;
+}
+
+function calculatePassword(filename) {
+    const instructions = fs.readFileSync(filename, "utf8").trim().split("\n");
+
+    for (const instruction of instructions) {
+        const direction = instruction[0];
+        const rotations = parseInt(instruction.slice(1), 10);
+
+        if (direction === "L") {
+            rotateLeft(rotations);
+        } else if (direction === "R") {
+            rotateRight(rotations);
+        }
+    }
+
+    return passwordCount;
+}
+
+const result = calculatePassword("../data/input.txt");
+
+console.log("day_1_Part_2");
+console.log("Password:", result);
